@@ -3,14 +3,17 @@ import { site } from "@/content/site";
 import { clubStats } from "@/content/stats";
 import { activities } from "@/content/activities";
 import { values, mindset, journey, milestones } from "@/content/story";
+import { media } from "@/content/media";
+import { site as cfg } from "@/content/site";
 import JoinCTA from "@/components/JoinCTA";
 const label: Record<string,string> = { "ACTIVE NOW":"bg-pine","DEVELOPING":"bg-sun text-ink","FUTURE":"border border-white/40" };
 export default function Home() {
   const stats = ([["Community members",clubStats.members],["Group activities",clubStats.groupActivities],["Hikes",clubStats.hikes],["Kilometers",clubStats.kilometers]] as [string,number|null][]).filter(([,v]) => v != null);
   return (<>
-    <section className="relative min-h-[88vh] flex items-end px-5 pb-16 bg-gradient-to-b from-[#1b2a1d] to-ink">
+    <section className="relative min-h-[88vh] flex items-end px-5 pb-16 bg-gradient-to-b from-[#1b2a1d] to-ink overflow-hidden">
+      {cfg.hero.src && <><img src={cfg.hero.src} alt="Bertusew members together" className="absolute inset-0 h-full w-full object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/20" /></>}
       {/* Hero media: set site.hero.src in content/site.ts */}
-      <div className="up mx-auto w-full max-w-7xl">
+      <div className="up relative mx-auto w-full max-w-7xl">
         <h1 className="text-6xl sm:text-8xl lg:text-9xl font-black tracking-tight">BERTUSEW</h1>
         <p className="mt-2 text-2xl sm:text-4xl font-black text-sun">RUN. RIDE. BELONG.</p>
         <p className="mt-4 max-w-xl text-lg opacity-80">An Ethiopian endurance community built on discipline, health and community.</p>
@@ -23,6 +26,9 @@ export default function Home() {
     <section className="mx-auto max-w-4xl px-5 py-24">
       <h2 className="text-5xl font-black">WE MOVE TOGETHER.</h2>
       <p className="mt-6 text-xl opacity-80">Bertusew is more than running. It is a community built around movement, discipline and connection. Some come to improve their running. Some to discover cycling or hiking. Some simply want people to move with. The common thread is consistency and community.</p>
+    </section>
+    <section className="mx-auto max-w-7xl px-5 pb-16 grid grid-cols-2 md:grid-cols-4 gap-2">
+      {media.slice(1, 5).map((m) => <img key={m.src} src={m.src} alt={m.alt} loading="lazy" className="aspect-[4/5] w-full object-cover" />)}
     </section>
     <section className="mx-auto max-w-7xl px-5 grid gap-4 md:grid-cols-3">
       {values.map(([n,t,d]) => <div key={n} className="border border-white/15 p-8"><p className="text-sun font-black">{n}</p><h3 className="text-3xl font-black uppercase mt-2">{t}</h3><p className="mt-2 opacity-80">{d}</p></div>)}

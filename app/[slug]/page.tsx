@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { pages } from "@/content/pages";
 import { events } from "@/content/events";
 import { documents, testimonials, relationships } from "@/content/recognition";
+import { media } from "@/content/media";
 import JoinCTA from "@/components/JoinCTA";
 type P = { params: Promise<{ slug: string }> };
 export function generateStaticParams() { return pages.map((p) => ({ slug: p.slug })); }
@@ -21,6 +22,7 @@ export default async function Page({ params }: P) {
       <div className="mt-12 grid gap-4">
         {p.sections.map((s) => <section key={s.h} className="border-t border-white/15 pt-5">{s.tag && <span className="text-[10px] font-black tracking-widest bg-sun text-ink px-2 py-1">{s.tag}</span>}<h2 className="mt-2 text-2xl font-black uppercase">{s.h}</h2><p className="opacity-80 mt-1">{s.b}</p></section>)}
         {slug === "events" && (events.length ? events.map((e) => <div key={e.title} className="border border-white/15 p-5"><b>{e.title}</b> · {e.date} · {e.status}</div>) : <Empty>NEW EVENTS ARE COMING.</Empty>)}
+        {slug === "media" && <div className="grid grid-cols-2 md:grid-cols-3 gap-2">{media.map((m) => <figure key={m.src}><img src={m.src} alt={m.alt} loading="lazy" className="aspect-[4/5] w-full object-cover" /><figcaption className="text-xs mt-1 opacity-70">{m.category} · {m.caption}</figcaption></figure>)}</div>}
         {slug === "join" && <JoinCTA />}
         {slug === "recognition" && (<>
           <h2 className="text-2xl font-black uppercase">Relationships</h2>
